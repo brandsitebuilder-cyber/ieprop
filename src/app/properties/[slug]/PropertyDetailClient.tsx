@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
 import type { Property } from '@/lib/supabase';
 import ImageGallery from './ImageGallery';
 import EnquiryForm from './EnquiryForm';
@@ -25,17 +24,14 @@ export default function PropertyDetailClient() {
   useEffect(() => {
     async function load() {
       try {
-        const { data } = await supabase
-          .from('ieprop_properties')
-          .select('*, images:ieprop_property_images(*), agent:ieprop_agents(*)')
-          .eq('slug', slug)
-          .eq('status', 'active')
-          .single();
-
+        const res = await fetch(`/api/properties/${slug}`);
+        if (!res.ok) { setProperty(null); return; }
+        const data = await res.json();
         if (data) {
-          const p = data as Property;
-          if (p.images) p.images.sort((a, b) => a.sort_order - b.sort_order);
-          setProperty(p);
+          if (data.images) data.images.sort((a: any, b: any) => a.sort_order - b.sort_order);
+          setProperty(data as Property);
+        } else {
+          setProperty(null);
         }
       } catch (e) {
         console.error(e);
