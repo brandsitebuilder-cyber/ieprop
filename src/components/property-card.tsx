@@ -1,13 +1,12 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Heart, Bed, Bath, Car, Maximize } from 'lucide-react';
 import type { Property } from '@/lib/supabase';
 
 export default function PropertyCard({ property }: { property: Property }) {
   const primaryImage =
-    property.images?.find((img) => img.is_primary)?.url ||
-    property.images?.[0]?.url ||
-    '/assets/placeholder-property.jpg';
+    property.images?.find((img) => img.is_primary)?.url ??
+    property.images?.[0]?.url ??
+    null;
 
   const formatPrice = (price: number) => {
     if (price >= 1_000_000) {
@@ -17,17 +16,21 @@ export default function PropertyCard({ property }: { property: Property }) {
   };
 
   return (
-    <Link href={`/property/${property.slug}`} className="group block">
+    <Link href={`/properties/${property.slug}`} className="group block">
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
         {/* Image */}
         <div className="relative h-44 bg-gray-200">
-          <Image
-            src={primaryImage}
-            alt={property.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          />
+          {primaryImage ? (
+            <img
+              src={primaryImage}
+              alt={property.title}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-gray-400">
+              <Maximize className="w-8 h-8" />
+            </div>
+          )}
           {/* Badge */}
           <div className="absolute top-2 left-2">
             <span
