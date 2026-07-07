@@ -17,14 +17,10 @@ export default function HomeContent() {
     async function load() {
       try {
         const [propsRes, agentsRes] = await Promise.all([
-          supabase.from('ieprop_properties')
-            .select(`*, images:ieprop_property_images(*), agent:ieprop_agents(*)`)
-            .eq('status', 'active')
-            .order('created_at', { ascending: false })
-            .limit(8),
+          fetch('/api/properties').then(r => r.json()),
           supabase.from('ieprop_agents').select('*').limit(4),
         ]);
-        setProperties((propsRes.data as Property[]) || []);
+        setProperties(propsRes || []);
         setAgents(agentsRes.data || []);
       } catch (e) {
         console.error(e);
