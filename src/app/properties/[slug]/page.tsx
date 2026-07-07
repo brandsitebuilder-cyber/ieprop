@@ -5,6 +5,7 @@ import type { Property } from "@/lib/supabase";
 import ImageGallery from "./ImageGallery";
 import EnquiryForm from "./EnquiryForm";
 import AgentCard from "./AgentCard";
+import PropertyCalculator from "./PropertyCalculator";
 import {
   Bed,
   Bath,
@@ -189,6 +190,9 @@ export default async function PropertyDetailPage({
         <div className="lg:col-span-1 space-y-6">
           {/* Enquiry Form */}
           <EnquiryForm propertyId={property.id} propertyTitle={property.title} />
+
+          {/* Affordability Calculator */}
+          <PropertyCalculator price={property.price} type={property.type} />
 
           {/* Agent Card */}
           {property.agent && <AgentCard agent={property.agent} />}
