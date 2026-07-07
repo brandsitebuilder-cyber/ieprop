@@ -1,17 +1,42 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 
 export default function SearchBar() {
+  const router = useRouter();
   const [query, setQuery] = useState('');
   const [type, setType] = useState('');
   const [price, setPrice] = useState('');
   const [beds, setBeds] = useState('');
 
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (type) params.set('type', type);
+    if (beds) params.set('bedrooms', beds);
+    if (query) params.set('location', query);
+    
+    // Parse price range
+    if (price) {
+      if (price.endsWith('+')) {
+        params.set('minPrice', price.replace('+', ''));
+      } else {
+        const [min, max] = price.split('-');
+        if (min) params.set('minPrice', min);
+        if (max) params.set('maxPrice', max);
+      }
+    }
+    
+    router.push(`/properties?${params.toString()}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') handleSearch();
+  };
+
   return (
     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-      {/* Search input */}
       <div className="flex-1 relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
         <input
@@ -19,11 +44,11 @@ export default function SearchBar() {
           placeholder="Search by suburb, city, or street..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
           className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
         />
       </div>
 
-      {/* Type dropdown */}
       <select
         value={type}
         onChange={(e) => setType(e.target.value)}
@@ -34,7 +59,6 @@ export default function SearchBar() {
         <option value="rent">To Rent</option>
       </select>
 
-      {/* Price dropdown */}
       <select
         value={price}
         onChange={(e) => setPrice(e.target.value)}
@@ -48,7 +72,6 @@ export default function SearchBar() {
         <option value="5000000+">R 5m+</option>
       </select>
 
-      {/* Beds dropdown */}
       <select
         value={beds}
         onChange={(e) => setBeds(e.target.value)}
@@ -62,8 +85,10 @@ export default function SearchBar() {
         <option value="5">5+</option>
       </select>
 
-      {/* Find button */}
-      <button className="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 transition-colors whitespace-nowrap w-full sm:w-auto">
+      <button 
+        onClick={handleSearch}
+        className="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 transition-colors whitespace-nowrap w-full sm:w-auto"
+      >
         Find properties
       </button>
     </div>
