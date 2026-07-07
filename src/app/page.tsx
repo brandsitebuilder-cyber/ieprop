@@ -6,7 +6,7 @@ import SearchBar from '@/components/search-bar';
 import AgentsStrip from '@/components/agents-strip';
 import CalculatorsToggle from '@/components/calculators-toggle';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 async function getProperties() {
   try {
