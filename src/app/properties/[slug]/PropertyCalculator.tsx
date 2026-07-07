@@ -38,7 +38,7 @@ export default function PropertyCalculator({ price, type }: PropertyCalculatorPr
   const [rate, setRate] = useState(11.75);
   const [years, setYears] = useState(20);
 
-  if (type === 'rent') return null;
+  if (type !== 'sale' && type !== 'rent') return null;
 
   const bond = calculateBond(price, depositPct, rate, years);
   const duty = transferDuty(price);
