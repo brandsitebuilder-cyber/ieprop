@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ieProp — Clean Editorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        colors: {
+          brand: {
+            50: '#f0f4f8',
+            100: '#d9e2ec',
+            200: '#bcccdc',
+            300: '#9fb3c8',
+            400: '#829ab1',
+            500: '#627d98',
+            600: '#486581',
+            700: '#334e68',
+            800: '#243b53',
+            900: '#102a43',
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .property-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+  .property-card { transition: all 0.3s ease; }
+  .stat-number { font-feature-settings: 'tnum'; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- Navbar -->
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-brand-800 rounded-lg flex items-center justify-center">
+        <span class="text-white font-bold text-sm">iP</span>
+      </div>
+      <span class="font-bold text-xl tracking-tight">ieProp</span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
+      <a href="#" class="hover:text-brand-700 transition">Buy</a>
+      <a href="#" class="hover:text-brand-700 transition">Rent</a>
+      <a href="#" class="hover:text-brand-700 transition">Agents</a>
+      <a href="#" class="hover:text-brand-700 transition">Calculators</a>
+      <a href="#" class="hover:text-brand-700 transition">About</a>
+    </div>
+    <button class="bg-brand-800 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-brand-900 transition">Contact</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative bg-gradient-to-br from-gray-50 via-white to-brand-50 pt-20 pb-28">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-2xl">
+      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-brand-900">
+        Find your place<br><span class="text-brand-600">in the world</span>
+      </h1>
+      <p class="mt-6 text-lg text-gray-500 max-w-lg leading-relaxed">
+        Discover exceptional properties across South Africa. Whether buying your dream home or finding the perfect rental, we make it effortless.
+      </p>
+    </div>
+
+    <!-- Search Card -->
+    <div class="mt-12 bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-6 border border-gray-100 max-w-3xl">
+      <div class="flex gap-3 mb-5">
+        <button class="bg-brand-800 text-white px-6 py-2 rounded-lg text-sm font-semibold">For Sale</button>
+        <button class="bg-gray-100 text-gray-600 px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition">To Rent</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <input type="text" placeholder="City, suburb or area" class="border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent">
+        <select class="border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <option>Property type</option><option>House</option><option>Apartment</option><option>Plot</option>
+        </select>
+        <select class="border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <option>Max price</option><option>R500k</option><option>R1m</option><option>R2m</option><option>R5m</option><option>R10m+</option>
+        </select>
+        <button class="bg-brand-800 text-white rounded-lg px-6 py-3 text-sm font-semibold hover:bg-brand-900 transition flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div class="text-center">
+      <div class="stat-number text-3xl font-bold text-brand-800">250+</div>
+      <div class="text-sm text-gray-500 mt-1">Properties Listed</div>
+    </div>
+    <div class="text-center">
+      <div class="stat-number text-3xl font-bold text-brand-800">R1.2B</div>
+      <div class="text-sm text-gray-500 mt-1">Property Value Sold</div>
+    </div>
+    <div class="text-center">
+      <div class="stat-number text-3xl font-bold text-brand-800">98%</div>
+      <div class="text-sm text-gray-500 mt-1">Client Satisfaction</div>
+    </div>
+    <div class="text-center">
+      <div class="stat-number text-3xl font-bold text-brand-800">15</div>
+      <div class="text-sm text-gray-500 mt-1">Expert Agents</div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Properties -->
+<section class="py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <span class="text-brand-600 font-semibold text-sm uppercase tracking-wider">Featured</span>
+        <h2 class="text-3xl font-bold mt-2 text-brand-900">Hand-picked properties</h2>
+      </div>
+      <a href="#" class="text-brand-700 font-medium text-sm hover:underline hidden md:block">View all →</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <div class="property-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+        <div class="relative h-52 bg-gray-200 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop" alt="Property" class="w-full h-full object-cover">
+          <span class="absolute top-3 left-3 bg-brand-800 text-white text-xs font-semibold px-3 py-1 rounded-full">For Sale</span>
+          <span class="absolute top-3 right-3 bg-white/90 text-brand-900 text-xs font-bold px-2.5 py-1 rounded-full">New</span>
+        </div>
+        <div class="p-5">
+          <div class="text-2xl font-bold text-brand-900">R3,450,000</div>
+          <h3 class="font-semibold mt-1">Modern Family Home</h3>
+          <p class="text-sm text-gray-500 mt-0.5">Constantia, Cape Town</p>
+          <div class="flex gap-4 mt-4 pt-4 border-t border-gray-50 text-sm text-gray-500">
+            <span>🛏 4 beds</span><span>🛁 3 baths</span><span>🚗 2 garage</span><span>📐 320m²</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="property-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+        <div class="relative h-52 bg-gray-200 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop" alt="Property" class="w-full h-full object-cover">
+          <span class="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">To Rent</span>
+        </div>
+        <div class="p-5">
+          <div class="text-2xl font-bold text-brand-900">R18,500<span class="text-sm font-normal text-gray-400">/mo</span></div>
+          <h3 class="font-semibold mt-1">Luxury Apartment</h3>
+          <p class="text-sm text-gray-500 mt-0.5">Sea Point, Cape Town</p>
+          <div class="flex gap-4 mt-4 pt-4 border-t border-gray-50 text-sm text-gray-500">
+            <span>🛏 2 beds</span><span>🛁 2 baths</span><span>🚗 1 garage</span><span>📐 110m²</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="property-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+        <div class="relative h-52 bg-gray-200 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&h=400&fit=crop" alt="Property" class="w-full h-full object-cover">
+          <span class="absolute top-3 left-3 bg-brand-800 text-white text-xs font-semibold px-3 py-1 rounded-full">For Sale</span>
+        </div>
+        <div class="p-5">
+          <div class="text-2xl font-bold text-brand-900">R6,200,000</div>
+          <h3 class="font-semibold mt-1">Estate Living</h3>
+          <p class="text-sm text-gray-500 mt-0.5">Somerset West</p>
+          <div class="flex gap-4 mt-4 pt-4 border-t border-gray-50 text-sm text-gray-500">
+            <span>🛏 5 beds</span><span>🛁 4 baths</span><span>🚗 3 garage</span><span>📐 580m²</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Calculators CTA -->
+<section class="bg-brand-50 py-16">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center gap-10">
+      <div class="flex-1">
+        <span class="text-brand-600 font-semibold text-sm uppercase tracking-wider">Tools</span>
+        <h2 class="text-3xl font-bold mt-2 text-brand-900">Crunch the numbers</h2>
+        <p class="mt-3 text-gray-500 leading-relaxed">Use our bond calculator to estimate monthly repayments, and the transfer cost calculator to see exactly what you'll need in cash.</p>
+        <div class="flex gap-3 mt-6">
+          <button class="bg-brand-800 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-brand-900 transition">Bond Calculator</button>
+          <button class="bg-white text-brand-800 border border-brand-200 px-6 py-3 rounded-lg text-sm font-semibold hover:bg-brand-50 transition">Transfer Costs</button>
+        </div>
+      </div>
+      <div class="flex-1 bg-white rounded-2xl p-8 border border-gray-100 shadow-lg">
+        <div class="text-sm text-gray-400 uppercase tracking-wider font-semibold mb-3">Monthly Repayment</div>
+        <div class="text-5xl font-extrabold text-brand-900">R31,247</div>
+        <div class="text-sm text-gray-500 mt-1">Based on R3,500,000 at 11.75% over 20 years</div>
+        <div class="mt-6 space-y-3">
+          <div class="flex justify-between text-sm"><span class="text-gray-500">Total interest</span><span class="font-semibold">R4,099,280</span></div>
+          <div class="flex justify-between text-sm"><span class="text-gray-500">Total repayment</span><span class="font-semibold">R7,499,280</span></div>
+          <div class="flex justify-between text-sm"><span class="text-gray-500">Transfer costs est.</span><span class="font-semibold">R237,850</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Agents -->
+<section class="py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <span class="text-brand-600 font-semibold text-sm uppercase tracking-wider">Our team</span>
+      <h2 class="text-3xl font-bold mt-2 text-brand-900">Meet your agents</h2>
+      <p class="text-gray-500 mt-2 max-w-md mx-auto">Dedicated professionals who know the market inside out.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="text-center">
+        <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" class="w-full h-full object-cover">
+        </div>
+        <div class="font-semibold text-brand-900">Oelof Stander</div>
+        <div class="text-sm text-gray-500">Principal Agent</div>
+      </div>
+      <div class="text-center">
+        <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop" class="w-full h-full object-cover">
+        </div>
+        <div class="font-semibold text-brand-900">Sarah Venter</div>
+        <div class="text-sm text-gray-500">Sales Specialist</div>
+      </div>
+      <div class="text-center">
+        <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop" class="w-full h-full object-cover">
+        </div>
+        <div class="font-semibold text-brand-900">James Nkosi</div>
+        <div class="text-sm text-gray-500">Rental Manager</div>
+      </div>
+      <div class="text-center">
+        <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" class="w-full h-full object-cover">
+        </div>
+        <div class="font-semibold text-brand-900">Lisa Mabaso</div>
+        <div class="text-sm text-gray-500">Property Consultant</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-brand-900 text-white py-16">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div>
+      <div class="flex items-center gap-2 mb-4">
+        <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+          <span class="text-brand-900 font-bold text-sm">iP</span>
+        </div>
+        <span class="font-bold text-xl">ieProp</span>
+      </div>
+      <p class="text-sm text-brand-200 leading-relaxed">Your trusted partner in South African property.</p>
+    </div>
+    <div>
+      <div class="font-semibold mb-3 text-sm uppercase tracking-wider text-brand-300">Browse</div>
+      <div class="space-y-2 text-sm text-brand-200"><div>For Sale</div><div>To Rent</div><div>New Developments</div><div>Commercial</div></div>
+    </div>
+    <div>
+      <div class="font-semibold mb-3 text-sm uppercase tracking-wider text-brand-300">Company</div>
+      <div class="space-y-2 text-sm text-brand-200"><div>About Us</div><div>Our Agents</div><div>Contact</div><div>Careers</div></div>
+    </div>
+    <div>
+      <div class="font-semibold mb-3 text-sm uppercase tracking-wider text-brand-300">Contact</div>
+      <div class="space-y-2 text-sm text-brand-200">
+        <div>📍 Johannesburg</div>
+        <div>📞 +27 11 568 5419</div>
+        <div>✉️ info@ieprop.co.za</div>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-brand-800 text-center text-sm text-brand-400">
+    © 2026 ieProp. Built by <a href="https://brandaisolutions.co.za" class="text-brand-200 hover:text-white transition">Brand AI Solutions</a>
+  </div>
+</footer>
+
+<script>
+  // Simple interactivity: stat counter animation
+  document.querySelectorAll('.stat-number').forEach(el => {
+    const final = el.textContent;
+    el.style.opacity = '1';
+  });
+</script>
+</body>
+</html>

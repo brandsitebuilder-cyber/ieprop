@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ieProp — Search-First</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        colors: {
+          brand: {
+            50: '#f0fdf4',
+            100: '#dcfce7',
+            200: '#bbf7d0',
+            300: '#86efac',
+            400: '#4ade80',
+            500: '#22c55e',
+            600: '#16a34a',
+            700: '#15803d',
+            800: '#166534',
+            900: '#14532d',
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .prop-card { transition: all 0.2s ease; }
+  .prop-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+  .tab-active { border-bottom: 2px solid #166534; color: #166534; }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+<!-- Topbar -->
+<header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 bg-brand-700 rounded-md flex items-center justify-center">
+          <span class="text-white font-bold text-xs">iP</span>
+        </div>
+        <span class="font-bold text-lg tracking-tight">ieProp</span>
+      </div>
+      <nav class="hidden md:flex gap-1">
+        <a href="#" class="px-3 py-1.5 rounded-md text-sm font-medium text-brand-700 bg-brand-50">Buy</a>
+        <a href="#" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Rent</a>
+        <a href="#" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Sold</a>
+        <a href="#" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Agents</a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="toggleCalc()" class="text-sm font-medium text-gray-600 hover:text-brand-700 transition hidden md:block">Calculators</button>
+      <button class="bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-800 transition">Contact</button>
+    </div>
+  </div>
+</header>
+
+<!-- Search Hero (compact, action-first) -->
+<section class="bg-white border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex flex-col md:flex-row md:items-center gap-3">
+      <div class="flex-1 relative">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" placeholder="Search by suburb, city, or street..." class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent">
+      </div>
+      <select class="border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <option>All types</option><option>House</option><option>Apartment</option><option>Townhouse</option><option>Plot</option>
+      </select>
+      <select class="border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <option>Any price</option><option>Under R1m</option><option>R1m–R3m</option><option>R3m–R5m</option><option>R5m+</option>
+      </select>
+      <select class="border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <option>Beds: Any</option><option>1+</option><option>2+</option><option>3+</option><option>4+</option>
+      </select>
+      <button class="bg-brand-700 text-white px-6 py-3 rounded-xl text-sm font-semibold hover:bg-brand-800 transition whitespace-nowrap">Find properties</button>
+    </div>
+    <div class="flex gap-6 mt-3 text-xs text-gray-400">
+      <span>250 properties available</span>
+      <a href="#" class="text-brand-600 hover:underline">Save this search →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Main content: grid-heavy -->
+<main class="max-w-7xl mx-auto px-4 py-6">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h2 class="text-lg font-bold">Featured properties</h2>
+      <p class="text-sm text-gray-500">Hand-picked by our agents</p>
+    </div>
+    <div class="flex gap-2">
+      <select class="text-xs border border-gray-200 rounded-lg px-3 py-2 text-gray-600 bg-white">
+        <option>Newest first</option><option>Price: low to high</option><option>Price: high to low</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- 4-column property grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <!-- Card -->
+    <div class="prop-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+      <div class="relative h-44 bg-gray-200">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500&h=350&fit=crop" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-brand-700 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">FOR SALE</span>
+        <button class="absolute top-2 right-2 w-7 h-7 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition text-sm">♡</button>
+      </div>
+      <div class="p-3">
+        <div class="font-bold text-brand-800">R3,450,000</div>
+        <div class="text-sm font-medium mt-0.5 truncate">Modern Family Home</div>
+        <div class="text-xs text-gray-400">Constantia, Cape Town</div>
+        <div class="flex gap-2 mt-2 text-[10px] text-gray-400">
+          <span>4 beds</span><span>·</span><span>3 baths</span><span>·</span><span>2 parking</span><span>·</span><span>320m²</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="prop-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+      <div class="relative h-44 bg-gray-200">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&h=350&fit=crop" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">TO RENT</span>
+        <button class="absolute top-2 right-2 w-7 h-7 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition text-sm">♡</button>
+      </div>
+      <div class="p-3">
+        <div class="font-bold text-brand-800">R18,500<span class="text-xs font-normal text-gray-400">/mo</span></div>
+        <div class="text-sm font-medium mt-0.5 truncate">Luxury Sea Point Apt</div>
+        <div class="text-xs text-gray-400">Sea Point, Cape Town</div>
+        <div class="flex gap-2 mt-2 text-[10px] text-gray-400">
+          <span>2 beds</span><span>·</span><span>2 baths</span><span>·</span><span>1 parking</span><span>·</span><span>110m²</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="prop-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+      <div class="relative h-44 bg-gray-200">
+        <img src="https://images.unsplash.com/photo-1600566753086-00f18f6b0050?w=500&h=350&fit=crop" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-brand-700 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">FOR SALE</span>
+        <button class="absolute top-2 right-2 w-7 h-7 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition text-sm">♡</button>
+      </div>
+      <div class="p-3">
+        <div class="font-bold text-brand-800">R6,200,000</div>
+        <div class="text-sm font-medium mt-0.5 truncate">Estate Living</div>
+        <div class="text-xs text-gray-400">Somerset West</div>
+        <div class="flex gap-2 mt-2 text-[10px] text-gray-400">
+          <span>5 beds</span><span>·</span><span>4 baths</span><span>·</span><span>3 parking</span><span>·</span><span>580m²</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="prop-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+      <div class="relative h-44 bg-gray-200">
+        <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=500&h=350&fit=crop" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">TO RENT</span>
+        <button class="absolute top-2 right-2 w-7 h-7 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition text-sm">♡</button>
+      </div>
+      <div class="p-3">
+        <div class="font-bold text-brand-800">R12,000<span class="text-xs font-normal text-gray-400">/mo</span></div>
+        <div class="text-sm font-medium mt-0.5 truncate">Garden Cottage</div>
+        <div class="text-xs text-gray-400">Parkhurst, Johannesburg</div>
+        <div class="flex gap-2 mt-2 text-[10px] text-gray-400">
+          <span>1 bed</span><span>·</span><span>1 bath</span><span>·</span><span>1 parking</span><span>·</span><span>65m²</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second row -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="prop-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+      <div class="relative h-44 bg-gray-200">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500&h=350&fit=crop" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-brand-700 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">FOR SALE</span>
+      </div>
+      <div class="p-3"><div class="font-bold text-brand-800">R1,950,000</div><div class="text-sm font-medium mt-0.5 truncate">Starter Home</div><div class="text-xs text-gray-400">Brackenfell</div><div class="flex gap-2 mt-2 text-[10px] text-gray-400"><span>3 beds</span><span>·</span><span>2 baths</span><span>·</span><span>1 parking</span><span>·</span><span>180m²</span></div></div>
+    </div>
+    <div class="prop-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+      <div class="relative h-44 bg-gray-200">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500&h=350&fit=crop" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-brand-700 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">FOR SALE</span>
+      </div>
+      <div class="p-3"><div class="font-bold text-brand-800">R8,900,000</div><div class="text-sm font-medium mt-0.5 truncate">Waterfront Villa</div><div class="text-xs text-gray-400">Camps Bay</div><div class="flex gap-2 mt-2 text-[10px] text-gray-400"><span>6 beds</span><span>·</span><span>5 baths</span><span>·</span><span>4 parking</span><span>·</span><span>750m²</span></div></div>
+    </div>
+    <div class="prop-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+      <div class="relative h-44 bg-gray-200">
+        <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=500&h=350&fit=crop" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">TO RENT</span>
+      </div>
+      <div class="p-3"><div class="font-bold text-brand-800">R22,000<span class="text-xs font-normal text-gray-400">/mo</span></div><div class="text-sm font-medium mt-0.5 truncate">Penthouse Suite</div><div class="text-xs text-gray-400">Sandton</div><div class="flex gap-2 mt-2 text-[10px] text-gray-400"><span>3 beds</span><span>·</span><span>3 baths</span><span>·</span><span>2 parking</span><span>·</span><span>200m²</span></div></div>
+    </div>
+    <div class="prop-card bg-white rounded-xl border border-gray-100 overflow-hidden cursor-pointer">
+      <div class="relative h-44 bg-gray-200">
+        <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=500&h=350&fit=crop" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-amber-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">PLOT</span>
+      </div>
+      <div class="p-3"><div class="font-bold text-brand-800">R850,000</div><div class="text-sm font-medium mt-0.5 truncate">Vacant Stand</div><div class="text-xs text-gray-400">Paarl</div><div class="flex gap-2 mt-2 text-[10px] text-gray-400"><span>—</span><span>·</span><span>—</span><span>·</span><span>—</span><span>·</span><span>500m²</span></div></div>
+    </div>
+  </div>
+
+  <!-- Load more -->
+  <div class="text-center pb-8">
+    <button class="border-2 border-brand-700 text-brand-700 px-8 py-3 rounded-xl text-sm font-semibold hover:bg-brand-700 hover:text-white transition">Load more properties</button>
+  </div>
+</main>
+
+<!-- Quick tools strip -->
+<section class="bg-white border-t border-gray-200 py-4" id="calcStrip" style="display:none">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-bold text-brand-900">Bond & Transfer Calculators</h3>
+      <button onclick="toggleCalc()" class="text-gray-400 hover:text-gray-600 text-lg">✕</button>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-gray-50 rounded-xl p-4">
+        <div class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">Bond Calculator</div>
+        <div class="grid grid-cols-2 gap-2">
+          <input type="number" placeholder="Price" class="border rounded-lg px-3 py-2 text-sm" value="3500000">
+          <input type="number" placeholder="Deposit %" class="border rounded-lg px-3 py-2 text-sm" value="10">
+          <input type="number" placeholder="Rate %" class="border rounded-lg px-3 py-2 text-sm" value="11.75">
+          <input type="number" placeholder="Years" class="border rounded-lg px-3 py-2 text-sm" value="20">
+        </div>
+        <div class="mt-3 text-2xl font-bold text-brand-800">R31,247<span class="text-sm font-normal text-gray-400">/month</span></div>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4">
+        <div class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">Transfer Costs</div>
+        <input type="number" placeholder="Purchase price" class="w-full border rounded-lg px-3 py-2 text-sm mb-2" value="3500000">
+        <div class="space-y-1 text-sm">
+          <div class="flex justify-between"><span class="text-gray-500">Transfer duty</span><span class="font-semibold">R182,575</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Attorney fees</span><span class="font-semibold">R48,500</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Deeds office + misc</span><span class="font-semibold">R6,775</span></div>
+          <div class="flex justify-between pt-2 border-t font-bold"><span>Total needed</span><span class="text-brand-800">R237,850</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Agents strip -->
+<section class="bg-white border-t border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h3 class="font-bold text-lg">Our agents</h3>
+        <p class="text-sm text-gray-500">15 experts across South Africa</p>
+      </div>
+      <a href="#" class="text-brand-700 text-sm font-medium hover:underline">View all →</a>
+    </div>
+    <div class="grid grid-cols-4 md:grid-cols-8 gap-3">
+      <div class="text-center cursor-pointer group">
+        <div class="w-14 h-14 mx-auto rounded-full bg-gray-200 overflow-hidden mb-1.5 group-hover:ring-2 ring-brand-500 transition">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" class="w-full h-full object-cover">
+        </div>
+        <div class="text-xs font-medium">Oelof</div>
+      </div>
+      <div class="text-center cursor-pointer group">
+        <div class="w-14 h-14 mx-auto rounded-full bg-gray-200 overflow-hidden mb-1.5 group-hover:ring-2 ring-brand-500 transition">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="w-full h-full object-cover">
+        </div>
+        <div class="text-xs font-medium">Sarah</div>
+      </div>
+      <div class="text-center cursor-pointer group">
+        <div class="w-14 h-14 mx-auto rounded-full bg-gray-200 overflow-hidden mb-1.5 group-hover:ring-2 ring-brand-500 transition">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" class="w-full h-full object-cover">
+        </div>
+        <div class="text-xs font-medium">James</div>
+      </div>
+      <div class="text-center cursor-pointer group">
+        <div class="w-14 h-14 mx-auto rounded-full bg-gray-200 overflow-hidden mb-1.5 group-hover:ring-2 ring-brand-500 transition">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" class="w-full h-full object-cover">
+        </div>
+        <div class="text-xs font-medium">Lisa</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer compact -->
+<footer class="bg-gray-900 text-gray-400 py-8">
+  <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <div class="w-6 h-6 bg-brand-700 rounded flex items-center justify-center"><span class="text-white font-bold text-[10px]">iP</span></div>
+      <span class="text-white font-bold text-sm">ieProp</span>
+    </div>
+    <div class="flex gap-6 text-xs">
+      <a href="#" class="hover:text-white transition">Buy</a>
+      <a href="#" class="hover:text-white transition">Rent</a>
+      <a href="#" class="hover:text-white transition">Agents</a>
+      <a href="#" class="hover:text-white transition">Calculators</a>
+      <a href="#" class="hover:text-white transition">Contact</a>
+    </div>
+    <div class="text-xs">
+      © 2026. Built by <a href="https://brandaisolutions.co.za" class="text-brand-400 hover:text-white transition">Brand AI Solutions</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleCalc() {
+    const strip = document.getElementById('calcStrip');
+    strip.style.display = strip.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
+</body>
+</html>
