@@ -31,13 +31,3 @@ body {
   color: #1a2332;
   font-family: var(--font-sans), Inter, system-ui, sans-serif;
 }
-
-@keyframes heroZoom {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-@keyframes shimmer {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
-}

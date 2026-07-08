@@ -1,24 +1,65 @@
 'use client';
 
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { MapPin, Bed, Bath, Car } from 'lucide-react';
 
+const SLIDES = [
+  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+  'https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+];
+
+const INTERVAL = 5000; // 5 seconds
+
 export default function HeroVideo() {
+  const [current, setCurrent] = useState(0);
+  const [fading, setFading] = useState(false);
+
+  const nextSlide = useCallback(() => {
+    setFading(true);
+    setTimeout(() => {
+      setCurrent((prev) => (prev + 1) % SLIDES.length);
+      setFading(false);
+    }, 500);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, INTERVAL);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
+
   return (
-    <section className="relative w-full h-[60vh] min-h-[400px] max-h-[600px] overflow-hidden bg-navy-900">
-      {/* Background image with zoom animation */}
-      <div
-        className="absolute inset-0 bg-cover bg-center animate-[heroZoom_20s_ease-in-out_infinite_alternate]"
-        style={{
-          backgroundImage: `url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80)`,
-        }}
-      />
+    <section className="relative w-full h-[65vh] min-h-[400px] max-h-[650px] overflow-hidden bg-navy-900">
+      {/* Slides */}
+      {SLIDES.map((url, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-in-out"
+          style={{
+            backgroundImage: `url(${url})`,
+            opacity: i === current ? (fading ? 0 : 1) : 0,
+          }}
+        />
+      ))}
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/40 to-navy-900/30" />
 
-      {/* Subtle video-like shimmer overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 animate-[shimmer_3s_ease-in-out_infinite]" />
+      {/* Dots indicator */}
+      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => { setFading(true); setTimeout(() => { setCurrent(i); setFading(false); }, 300); }}
+            className={`w-2 h-2 rounded-full transition-all ${
+              i === current ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/70'
+            }`}
+            aria-label={`Slide ${i + 1}`}
+          />
+        ))}
+      </div>
 
       {/* Content overlay */}
       <div className="relative z-10 h-full flex flex-col justify-end pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
