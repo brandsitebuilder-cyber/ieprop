@@ -1,4 +1,4 @@
-import HeroVideo from '@/components/hero-video';
+import HeroVideo from '@/components/hero-video-v2';
 import HomeContent from './home-content';
 import SearchBar from '@/components/search-bar';
 
