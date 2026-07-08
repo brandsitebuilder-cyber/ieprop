@@ -68,18 +68,21 @@ export default function PropertyFilters({ currentParams }: PropertyFiltersProps)
       </div>
 
       <div className="space-y-5">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">Property Type</label>
-          <select
-            value={currentParams.type ?? ""}
-            onChange={(e) => updateFilter("type", e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-          >
-            <option value="">All Types</option>
-            <option value="sale">For Sale</option>
-            <option value="rent">To Rent</option>
-          </select>
-        </div>
+        {/* Hide type filter on sold pages */}
+        {currentParams.status !== "sold" && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Property Type</label>
+            <select
+              value={currentParams.type ?? ""}
+              onChange={(e) => updateFilter("type", e.target.value)}
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
+            >
+              <option value="">All Types</option>
+              <option value="sale">For Sale</option>
+              <option value="rent">To Rent</option>
+            </select>
+          </div>
+        )}
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">Min Price</label>
