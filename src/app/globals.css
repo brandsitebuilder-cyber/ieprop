@@ -1,24 +1,33 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
-  --color-brand: #16a34a;
-  --color-brand-50: #f0fdf4;
-  --color-brand-100: #dcfce7;
-  --color-brand-200: #bbf7d0;
-  --color-brand-300: #86efac;
-  --color-brand-400: #4ade80;
-  --color-brand-500: #22c55e;
-  --color-brand-600: #16a34a;
-  --color-brand-700: #15803d;
-  --color-brand-800: #166534;
-  --color-brand-900: #14532d;
+  --color-brand: #4a90d9;
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #b8d8f8;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #6baedb;
+  --color-brand-500: #4a90d9;
+  --color-brand-600: #3578c2;
+  --color-brand-700: #2a62a0;
+  --color-brand-800: #1e4a7e;
+  --color-brand-900: #15345c;
+  --color-navy: #0a1628;
+  --color-navy-50: #f0f4f8;
+  --color-navy-100: #d9e2ec;
+  --color-navy-200: #bccbdc;
+  --color-navy-300: #9fb3c8;
+  --color-navy-400: #829ab1;
+  --color-navy-500: #627d98;
+  --color-navy-600: #486581;
+  --color-navy-700: #334e68;
+  --color-navy-800: #1f3a52;
+  --color-navy-900: #0a1628;
 }
 
 body {
-  background: #f9fafb;
-  color: #111827;
+  background: #f4f7fa;
+  color: #1a2332;
   font-family: var(--font-sans), Inter, system-ui, sans-serif;
 }

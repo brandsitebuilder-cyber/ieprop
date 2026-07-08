@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Home, Building2, Banknote, UserRound, Calculator, Menu, X, Phone } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -16,18 +15,12 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 h-14 bg-white border-b border-gray-200">
+    <nav className="sticky top-0 z-50 h-14 bg-navy-900 border-b border-navy-800">
       <div className="max-w-7xl mx-auto h-full px-4 flex items-center justify-between">
-        {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
-          <img
-            src="/assets/logo.png"
-            alt="ieProp"
-            className="h-10 w-auto"
-          />
+          <img src="/assets/logo.png" alt="ieProp" className="h-10 w-auto" />
         </Link>
 
-        {/* Desktop nav tabs */}
         <div className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
@@ -37,8 +30,8 @@ export default function Navbar() {
                 href={item.href}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                   item.active
-                    ? 'text-brand-700 bg-brand-50'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'text-brand-400 bg-navy-800'
+                    : 'text-gray-400 hover:text-white hover:bg-navy-800'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -48,27 +41,22 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Desktop right */}
         <div className="hidden md:flex items-center gap-4">
-          <Link
-            href="/calculators"
-            className="text-sm font-medium text-gray-600 hover:text-brand-700 transition-colors"
-          >
+          <Link href="/calculators" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
             <Calculator className="w-4 h-4 inline mr-1" />
             Calculators
           </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-white bg-brand-700 hover:bg-brand-800 transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-white bg-brand-500 hover:bg-brand-600 transition-colors"
           >
             <Phone className="w-4 h-4" />
             Contact
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100"
+          className="md:hidden p-2 rounded-md text-gray-400 hover:text-white hover:bg-navy-800"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
@@ -76,9 +64,8 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 px-4 py-3 space-y-1">
+        <div className="md:hidden bg-navy-800 border-t border-navy-700 px-4 py-3 space-y-1">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             return (
@@ -88,8 +75,8 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium ${
                   item.active
-                    ? 'text-brand-700 bg-brand-50'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'text-brand-400 bg-navy-700'
+                    : 'text-gray-400 hover:text-white hover:bg-navy-700'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -100,7 +87,7 @@ export default function Navbar() {
           <Link
             href="/calculators"
             onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white hover:bg-navy-700"
           >
             <Calculator className="w-4 h-4" />
             Calculators
@@ -108,7 +95,7 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-white bg-brand-700 hover:bg-brand-800"
+            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-white bg-brand-500 hover:bg-brand-600"
           >
             <Phone className="w-4 h-4" />
             Contact
