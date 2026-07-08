@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { Home, Building2, Banknote, UserRound, Calculator, Menu, X, Phone } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { label: 'Buy', href: '/buy', icon: Home, active: true },
-  { label: 'Rent', href: '/rent', icon: Building2 },
-  { label: 'Sold', href: '/sold', icon: Banknote },
+  { label: 'Buy', href: '/properties?type=sale', icon: Home, active: true },
+  { label: 'Rent', href: '/properties?type=rent', icon: Building2 },
+  { label: 'Sold', href: '/properties', icon: Banknote },
   { label: 'Agents', href: '/agents', icon: UserRound },
 ];
 

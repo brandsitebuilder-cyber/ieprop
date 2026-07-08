@@ -2,8 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const FOOTER_LINKS = [
-  { label: 'Buy', href: '/buy' },
-  { label: 'Rent', href: '/rent' },
+  { label: 'Buy', href: '/properties?type=sale' },
+  { label: 'Rent', href: '/properties?type=rent' },
   { label: 'Agents', href: '/agents' },
   { label: 'Calculators', href: '/calculators' },
   { label: 'Contact', href: '/contact' },
