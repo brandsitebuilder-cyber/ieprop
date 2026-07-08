@@ -9,7 +9,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
     const { slug } = await params;
 
     const propsRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/ieprop_properties?select=*&slug=eq.${encodeURIComponent(slug)}&status=eq.active&limit=1`,
+      `${SUPABASE_URL}/rest/v1/ieprop_properties?select=*&slug=eq.${encodeURIComponent(slug)}&limit=1`,
       { headers }
     );
     const properties = await propsRes.json();
