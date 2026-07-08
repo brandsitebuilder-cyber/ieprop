@@ -49,15 +49,19 @@ export default function PropertyCard({ property }: PropertyCardProps) {
         )}
 
         {/* Type badge */}
-        <span
-          className={`absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${
-            property.type === "sale"
-              ? "bg-brand-600 text-white"
-              : "bg-blue-600 text-white"
-          }`}
-        >
-          {property.type === "sale" ? "For Sale" : "To Rent"}
-        </span>
+        {property.status === "sold" ? (
+          <span className="absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-red-600 text-white">
+            Sold
+          </span>
+        ) : (
+          <span
+            className={`absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${
+              property.type === "sale" ? "bg-brand-600 text-white" : "bg-blue-600 text-white"
+            }`}
+          >
+            {property.type === "sale" ? "For Sale" : "To Rent"}
+          </span>
+        )}
 
         {/* Favorite toggle */}
         <button

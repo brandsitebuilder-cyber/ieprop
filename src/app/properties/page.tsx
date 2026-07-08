@@ -104,7 +104,7 @@ export default async function PropertiesPage({
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">
-          Properties {params.type === "rent" ? "To Rent" : "For Sale"}
+          {params.status === "sold" ? "Sold Properties" : `Properties ${params.type === "rent" ? "To Rent" : "For Sale"}`}
         </h1>
         <p className="mt-2 text-gray-600">
           {total > 0
