@@ -13,7 +13,7 @@ const SLIDES = [
 ];
 
 // Cinematic Palm Beach Penthouse tour (1:27, 4K, no talking)
-const VIDEO_ID = 'jPkBJY1KI_Q';
+const VIDEO_ID = 'Vc8Hy9uIbSM';
 
 const INTERVAL = 5000;
 
