@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { MapPin, Bed, Bath, Car } from 'lucide-react';
 
-// Hartland Estate fallback slides
 const SLIDES = [
   'https://www.hartlandestate.co.za/wp-content/uploads/2023/08/Bespoke-1.jpg',
   'https://www.hartlandestate.co.za/wp-content/uploads/2023/08/Bespoke-2.jpg',
@@ -17,29 +16,30 @@ const INTERVAL = 5000;
 
 export default function HeroVideo() {
   const [current, setCurrent] = useState(0);
-  const [fading, setFading] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
+
+  // After 6s, switch from slides to video
+  useEffect(() => {
+    const t = setTimeout(() => setShowVideo(true), 6000);
+    return () => clearTimeout(t);
+  }, []);
 
   const nextSlide = useCallback(() => {
-    setFading(true);
-    setTimeout(() => {
-      setCurrent((prev) => (prev + 1) % SLIDES.length);
-      setFading(false);
-    }, 500);
+    setCurrent((prev) => (prev + 1) % SLIDES.length);
   }, []);
 
   useEffect(() => {
-    if (videoLoaded) return;
+    if (showVideo) return;
     const timer = setInterval(nextSlide, INTERVAL);
     return () => clearInterval(timer);
-  }, [nextSlide, videoLoaded]);
+  }, [nextSlide, showVideo]);
 
   return (
     <section className="relative w-full h-[65vh] min-h-[400px] max-h-[650px] overflow-hidden bg-navy-900">
-      {/* YouTube video embed */}
-      <div className={`absolute inset-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      {/* YouTube video — show after 6s delay */}
+      <div className="absolute inset-0" style={{ opacity: showVideo ? 1 : 0 }}>
         <iframe
-          src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&controls=0&loop=1&playlist=${VIDEO_ID}&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+          src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&controls=0&loop=1&playlist=${VIDEO_ID}&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
           className="absolute inset-0 w-full h-full pointer-events-none"
           style={{
             width: '100vw',
@@ -53,24 +53,27 @@ export default function HeroVideo() {
           }}
           allow="autoplay; encrypted-media"
           title="Featured property"
-          onLoad={() => setVideoLoaded(true)}
         />
       </div>
 
-      {/* Fallback image slides */}
-      <div className={`absolute inset-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}>
+      {/* Slides — initial state */}
+      <div className="absolute inset-0" style={{ opacity: showVideo ? 0 : 1 }}>
         {SLIDES.map((url, i) => (
           <div
             key={i}
-            className="absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-in-out"
-            style={{ backgroundImage: `url(${url})`, opacity: i === current ? (fading ? 0 : 1) : 0 }}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${url})`,
+              opacity: i === current ? 1 : 0,
+              transition: 'opacity 700ms ease-in-out',
+            }}
           />
         ))}
         <div className="absolute bottom-28 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {SLIDES.map((_, i) => (
             <button
               key={i}
-              onClick={() => { setFading(true); setTimeout(() => { setCurrent(i); setFading(false); }, 300); }}
+              onClick={() => setCurrent(i)}
               className={`w-2 h-2 rounded-full transition-all ${i === current ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/70'}`}
               aria-label={`Slide ${i + 1}`}
             />
@@ -78,13 +81,10 @@ export default function HeroVideo() {
         </div>
       </div>
 
-      {/* Dark overlay */}
-      <div className={`absolute inset-0 transition-all duration-1000 ${
-        videoLoaded ? 'bg-gradient-to-t from-navy-900/80 via-navy-900/30 to-navy-900/20'
-          : 'bg-gradient-to-t from-navy-900/90 via-navy-900/40 to-navy-900/30'
-      }`} />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-navy-900/80 via-navy-900/25 to-navy-900/20" />
 
-      {/* Content overlay — Hartlands Clubville property */}
+      {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-end pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <span className="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-brand-500 text-white w-fit mb-3">
           Featured Property
