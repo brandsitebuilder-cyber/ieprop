@@ -19,15 +19,12 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 h-14 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto h-full px-4 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <Image
-            src="/assets/icon-blue.png"
+        <Link href="/" className="flex items-center shrink-0">
+          <img
+            src="/assets/logo.png"
             alt="ieProp"
-            width={28}
-            height={28}
-            className="w-7 h-7"
+            className="h-10 w-auto"
           />
-          <span className="text-lg font-bold text-gray-900">ieProp</span>
         </Link>
 
         {/* Desktop nav tabs */}
