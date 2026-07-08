@@ -4,17 +4,15 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { MapPin, Bed, Bath, Car } from 'lucide-react';
 
-// Fallback slides if video fails to load
+// Hartland Estate fallback slides
 const SLIDES = [
-  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-  'https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+  'https://www.hartlandestate.co.za/wp-content/uploads/2023/08/Bespoke-1.jpg',
+  'https://www.hartlandestate.co.za/wp-content/uploads/2023/08/Bespoke-2.jpg',
+  'https://www.hartlandestate.co.za/wp-content/uploads/2023/08/Bespoke-3.jpg',
+  'https://www.hartlandestate.co.za/wp-content/uploads/2023/08/Bespoke-4.jpg',
 ];
 
-// Cinematic Palm Beach Penthouse tour (1:27, 4K, no talking)
 const VIDEO_ID = 'Vc8Hy9uIbSM';
-
 const INTERVAL = 5000;
 
 export default function HeroVideo() {
@@ -31,7 +29,7 @@ export default function HeroVideo() {
   }, []);
 
   useEffect(() => {
-    if (videoLoaded) return; // Don't rotate slides when video is playing
+    if (videoLoaded) return;
     const timer = setInterval(nextSlide, INTERVAL);
     return () => clearInterval(timer);
   }, [nextSlide, videoLoaded]);
@@ -59,65 +57,58 @@ export default function HeroVideo() {
         />
       </div>
 
-      {/* Fallback image slides (shown while video loads or if it fails) */}
+      {/* Fallback image slides */}
       <div className={`absolute inset-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}>
         {SLIDES.map((url, i) => (
           <div
             key={i}
             className="absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-in-out"
-            style={{
-              backgroundImage: `url(${url})`,
-              opacity: i === current ? (fading ? 0 : 1) : 0,
-            }}
+            style={{ backgroundImage: `url(${url})`, opacity: i === current ? (fading ? 0 : 1) : 0 }}
           />
         ))}
-        {/* Dots — only show during slideshow */}
         <div className="absolute bottom-28 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {SLIDES.map((_, i) => (
             <button
               key={i}
               onClick={() => { setFading(true); setTimeout(() => { setCurrent(i); setFading(false); }, 300); }}
-              className={`w-2 h-2 rounded-full transition-all ${
-                i === current ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/70'
-              }`}
+              className={`w-2 h-2 rounded-full transition-all ${i === current ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/70'}`}
               aria-label={`Slide ${i + 1}`}
             />
           ))}
         </div>
       </div>
 
-      {/* Dark overlay — slightly lighter when video is playing */}
+      {/* Dark overlay */}
       <div className={`absolute inset-0 transition-all duration-1000 ${
-        videoLoaded
-          ? 'bg-gradient-to-t from-navy-900/80 via-navy-900/30 to-navy-900/20'
+        videoLoaded ? 'bg-gradient-to-t from-navy-900/80 via-navy-900/30 to-navy-900/20'
           : 'bg-gradient-to-t from-navy-900/90 via-navy-900/40 to-navy-900/30'
       }`} />
 
-      {/* Content overlay */}
+      {/* Content overlay — Hartlands Clubville property */}
       <div className="relative z-10 h-full flex flex-col justify-end pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <span className="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-brand-500 text-white w-fit mb-3">
           Featured Property
         </span>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">
-          Clifton Beach Penthouse
+          Luxury Family Home
         </h1>
         <p className="text-gray-300 flex items-center gap-1 text-sm sm:text-base mb-3">
           <MapPin className="w-4 h-4" />
-          Clifton, Cape Town
+          Clubville, Middelburg
         </p>
         <p className="text-2xl sm:text-3xl font-bold text-brand-300 mb-4">
-          R 24 500 000
+          R 4 775 000
         </p>
         <p className="text-gray-400 text-sm max-w-lg mb-4 line-clamp-2">
-          180-degree ocean views. Floor-to-ceiling glass, wraparound terrace, private plunge pool. Four bedroom suites with designer finishes.
+          6-bedroom family home on a 1200m² stand. Multiple living areas, gourmet kitchen, covered entertainment patio with pool, study, staff quarters, and 6 garages.
         </p>
         <div className="flex items-center gap-4 text-sm text-gray-300 mb-6">
-          <span className="flex items-center gap-1"><Bed className="w-4 h-4" /> 4</span>
+          <span className="flex items-center gap-1"><Bed className="w-4 h-4" /> 6</span>
           <span className="flex items-center gap-1"><Bath className="w-4 h-4" /> 4</span>
-          <span className="flex items-center gap-1"><Car className="w-4 h-4" /> 2</span>
+          <span className="flex items-center gap-1"><Car className="w-4 h-4" /> 6</span>
         </div>
         <Link
-          href="/properties/clifton-beach-penthouse"
+          href="/properties/clubville-luxury-family-home"
           className="inline-flex px-6 py-3 rounded-lg text-sm font-semibold bg-white text-navy-900 hover:bg-brand-100 transition-colors w-fit"
         >
           View this property
