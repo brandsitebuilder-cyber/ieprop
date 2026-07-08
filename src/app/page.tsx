@@ -1,9 +1,11 @@
+import HeroVideo from '@/components/hero-video';
 import HomeContent from './home-content';
 import SearchBar from '@/components/search-bar';
 
 export default function HomePage() {
   return (
     <div className="flex flex-col">
+      <HeroVideo />
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <SearchBar />
