@@ -21,6 +21,7 @@ interface SearchParams {
   bedrooms?: string;
   bathrooms?: string;
   location?: string;
+  status?: string;
   sort?: string;
   page?: string;
 }
@@ -31,7 +32,7 @@ async function getProperties(searchParams: SearchParams) {
   let query = supabase
     .from("ieprop_properties")
     .select("*, images:ieprop_property_images(*)", { count: "exact" })
-    .eq("status", "active");
+    .eq("status", searchParams.status || "active");
 
   // Filters
   if (searchParams.type && ["sale", "rent"].includes(searchParams.type)) {

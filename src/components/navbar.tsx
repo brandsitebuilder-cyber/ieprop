@@ -7,7 +7,7 @@ import { Home, Building2, Banknote, UserRound, Calculator, Menu, X, Phone } from
 const NAV_ITEMS = [
   { label: 'Buy', href: '/properties?type=sale', icon: Home, active: true },
   { label: 'Rent', href: '/properties?type=rent', icon: Building2 },
-  { label: 'Sold', href: '/properties', icon: Banknote },
+  { label: 'Sold', href: '/properties?status=sold&type=sale', icon: Banknote },
   { label: 'Agents', href: '/agents', icon: UserRound },
 ];
 

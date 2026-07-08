@@ -1,20 +1,25 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const headers = { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` };
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const url = new URL(req.url);
+    const status = url.searchParams.get('status') || 'active';
+    const type = url.searchParams.get('type') || '';
+    const limit = url.searchParams.get('limit') || '8';
+
+    let propsQuery = `${SUPABASE_URL}/rest/v1/ieprop_properties?select=*&status=eq.${encodeURIComponent(status)}&order=created_at.desc&limit=${limit}`;
+    if (type) {
+      propsQuery += `&type=eq.${encodeURIComponent(type)}`;
+    }
+
     const [propsRes, imagesRes, agentsRes] = await Promise.all([
-      fetch(`${SUPABASE_URL}/rest/v1/ieprop_properties?select=*&status=eq.active&order=created_at.desc&limit=8`, {
-        headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` },
-      }),
-      fetch(`${SUPABASE_URL}/rest/v1/ieprop_property_images?select=*`, {
-        headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` },
-      }),
-      fetch(`${SUPABASE_URL}/rest/v1/ieprop_agents?select=*`, {
-        headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` },
-      }),
+      fetch(propsQuery, { headers }),
+      fetch(`${SUPABASE_URL}/rest/v1/ieprop_property_images?select=*`, { headers }),
+      fetch(`${SUPABASE_URL}/rest/v1/ieprop_agents?select=*`, { headers }),
     ]);
 
     const properties = await propsRes.json();
@@ -36,6 +41,6 @@ export async function GET() {
 
     return NextResponse.json(result);
   } catch (e) {
-    return NextResponse.json({ error: 'Failed to fetch' }, { status: 500 });
+    return NextResponse.json([], { status: 200 });
   }
 }
