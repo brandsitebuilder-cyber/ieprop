@@ -50,7 +50,7 @@ export default function ContactPage() {
       <section className="bg-brand text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight">Contact Us</h1>
-          <p className="mt-4 text-green-50 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 text-brand-100 text-lg max-w-2xl mx-auto">
             Have a question or ready to start your property journey? Get in touch and we&apos;ll respond promptly.
           </p>
         </div>
@@ -64,14 +64,14 @@ export default function ContactPage() {
               <h2 className="text-xl font-bold text-gray-900 mb-6">Send us a message</h2>
 
               {state.success ? (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mx-auto mb-4">
-                    <Send size={20} className="text-green-600" />
+                <div className="bg-brand-50 border border-brand-200 rounded-lg p-6 text-center">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-full bg-brand-100 mx-auto mb-4">
+                    <Send size={20} className="text-brand-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-green-800 mb-1">
+                  <h3 className="text-lg font-semibold text-brand-800 mb-1">
                     Message Sent!
                   </h3>
-                  <p className="text-green-600">
+                  <p className="text-brand-600">
                     Thank you for your inquiry. We&apos;ll get back to you shortly.
                   </p>
                 </div>

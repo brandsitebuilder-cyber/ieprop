@@ -36,7 +36,7 @@ export default function PropertyCard({ property }: { property: Property }) {
             <span
               className={`text-xs font-semibold px-2 py-0.5 rounded ${
                 property.type === 'sale'
-                  ? 'bg-green-600 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-blue-600 text-white'
               }`}
             >

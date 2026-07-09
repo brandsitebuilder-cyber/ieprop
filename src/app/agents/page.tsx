@@ -53,7 +53,7 @@ export default async function AgentsPage() {
       <section className="bg-brand text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight">Our Agents</h1>
-          <p className="mt-4 text-green-50 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 text-brand-100 text-lg max-w-2xl mx-auto">
             Meet our team of experienced property professionals dedicated to finding your perfect home.
           </p>
         </div>

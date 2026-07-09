@@ -242,7 +242,7 @@ export default function CalculatorsPage() {
       <section className="bg-brand text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight">Property Calculators</h1>
-          <p className="mt-4 text-green-50 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 text-brand-100 text-lg max-w-2xl mx-auto">
             Calculate your bond repayments and transfer costs. Get a clear picture of your property investment.
           </p>
         </div>

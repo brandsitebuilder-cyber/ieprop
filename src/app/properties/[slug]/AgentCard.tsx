@@ -69,7 +69,7 @@ export default function AgentCard({ agent }: AgentCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackClick("whatsapp")}
-            className="flex items-center gap-2 w-full rounded-lg bg-green-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-green-600 transition-colors"
+            className="flex items-center gap-2 w-full rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 transition-colors"
           >
             <MessageCircle className="w-4 h-4" />
             WhatsApp
