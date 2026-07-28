@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Bed, Bath, Car, Play } from "lucide-react";
+import { MapPin, Bed, Bath, Car, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const IMAGES = [
   "/properties/featured/379037145.jpg",
@@ -25,6 +25,17 @@ const VIDEO_ID = "CboOPFrQIvI";
 export default function FeaturedProperty() {
   const [showVideo, setShowVideo] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+
+  const openGallery = (index: number) => {
+    setActiveImage(index);
+    setShowVideo(false);
+    setGalleryOpen(true);
+  };
+
+  const nextImage = () => setActiveImage((prev) => (prev + 1) % IMAGES.length);
+  const prevImage = () =>
+    setActiveImage((prev) => (prev - 1 + IMAGES.length) % IMAGES.length);
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-10">
@@ -60,10 +71,7 @@ export default function FeaturedProperty() {
               src={IMAGES[activeImage]}
               alt="Featured property"
               className="w-full aspect-[16/10] object-cover cursor-pointer"
-              onClick={() => {
-                const next = (activeImage + 1) % IMAGES.length;
-                setActiveImage(next);
-              }}
+              onClick={() => openGallery(activeImage)}
             />
           )}
         </div>
@@ -74,8 +82,8 @@ export default function FeaturedProperty() {
             <button
               key={i}
               onClick={() => {
-                setShowVideo(false);
-                setActiveImage(i);
+                if (i === 1) openGallery(2);
+                else openGallery(i);
               }}
               className="relative flex-1 overflow-hidden rounded-xl bg-gray-100 group"
             >
@@ -85,7 +93,7 @@ export default function FeaturedProperty() {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform"
               />
               {i === 1 && (
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center cursor-pointer">
                   <span className="text-white text-sm font-semibold bg-black/60 px-3 py-1.5 rounded-full">
                     +{IMAGES.length - 2} more
                   </span>
@@ -101,10 +109,7 @@ export default function FeaturedProperty() {
         {IMAGES.slice(0, 4).map((img, i) => (
           <button
             key={i}
-            onClick={() => {
-              setShowVideo(false);
-              setActiveImage(i);
-            }}
+            onClick={() => openGallery(i)}
             className={`w-16 h-12 rounded-lg overflow-hidden border-2 transition-colors ${
               !showVideo && activeImage === i
                 ? "border-brand-500"
@@ -122,7 +127,12 @@ export default function FeaturedProperty() {
         >
           <Play className="w-4 h-4" />
         </button>
-        <span className="text-sm text-gray-400 ml-2">+{IMAGES.length - 4} photos</span>
+        <button
+          onClick={() => openGallery(4)}
+          className="text-sm text-brand-500 hover:text-brand-600 ml-2 font-medium"
+        >
+          +{IMAGES.length - 4} photos
+        </button>
       </div>
 
       {/* Property details */}
@@ -162,18 +172,9 @@ export default function FeaturedProperty() {
           {/* Features grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-2 gap-x-6 text-sm text-gray-600">
             {[
-              "Pool",
-              "Garden",
-              "Flatlet",
-              "Study",
-              "Pet Friendly",
-              "Furnished",
-              "Fibre Internet",
-              "Borehole",
-              "Gas Geyser",
-              "Solar Panels",
-              "Solar Geyser",
-              "Backup Battery/Inverter",
+              "Pool", "Garden", "Flatlet", "Study", "Pet Friendly", "Furnished",
+              "Fibre Internet", "Borehole", "Gas Geyser", "Solar Panels",
+              "Solar Geyser", "Backup Battery/Inverter",
             ].map((f) => (
               <span key={f} className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
@@ -205,6 +206,68 @@ export default function FeaturedProperty() {
           </p>
         </div>
       </div>
+
+      {/* Full Gallery Lightbox */}
+      {galleryOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+          onClick={() => setGalleryOpen(false)}
+        >
+          {/* Close */}
+          <button
+            onClick={() => setGalleryOpen(false)}
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white z-10"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {/* Counter */}
+          <span className="absolute top-4 left-4 text-white/70 text-sm z-10">
+            {activeImage + 1} / {IMAGES.length}
+          </span>
+
+          {/* Prev */}
+          <button
+            onClick={(e) => { e.stopPropagation(); prevImage(); }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white z-10"
+          >
+            <ChevronLeft className="w-8 h-8" />
+          </button>
+
+          {/* Main image */}
+          <img
+            src={IMAGES[activeImage]}
+            alt=""
+            className="max-h-[85vh] max-w-[90vw] object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          {/* Next */}
+          <button
+            onClick={(e) => { e.stopPropagation(); nextImage(); }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white z-10"
+          >
+            <ChevronRight className="w-8 h-8" />
+          </button>
+
+          {/* Thumbnail strip */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {IMAGES.map((img, i) => (
+              <button
+                key={i}
+                onClick={(e) => { e.stopPropagation(); setActiveImage(i); }}
+                className={`w-12 h-9 rounded-md overflow-hidden border-2 transition-colors ${
+                  i === activeImage
+                    ? "border-brand-500"
+                    : "border-transparent hover:border-white/50"
+                }`}
+              >
+                <img src={img} alt="" className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
