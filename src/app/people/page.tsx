@@ -83,7 +83,7 @@ export default function PeoplePage() {
                   <img
                     src={person.photo}
                     alt={person.name}
-                    className="h-28 w-28 rounded-full object-cover"
+                    className="h-28 w-28 rounded-full object-cover object-top"
                   />
                 ) : (
                   <AgentInitials name={person.name} />
