@@ -1,18 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { Home, Building2, Banknote, UserRound, Calculator, Menu, X, Phone } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { label: 'Buy', href: '/properties?type=sale', icon: Home, active: true },
-  { label: 'Rent', href: '/properties?type=rent', icon: Building2 },
-  { label: 'Sold', href: '/properties?status=sold&type=sale', icon: Banknote },
-  { label: 'People', href: '/people', icon: UserRound },
+  { label: 'About', href: '/about' },
+  { label: 'Properties', href: '/properties' },
+  { label: 'Developments', href: '/developments' },
+  {
+    label: 'International & Golden Visa',
+    href: '#',
+    dropdown: [
+      { label: 'International', href: '/international' },
+      { label: 'Golden Visa', href: '/golden-visa' },
+    ],
+  },
+  { label: 'Our Team', href: '/people' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 h-14 bg-navy-900 border-b border-navy-800">
@@ -21,40 +42,53 @@ export default function Navbar() {
           <img src="/assets/logo.png" alt="ieProp" className="h-10 w-auto" />
         </Link>
 
-        <div className="hidden md:flex items-center gap-1">
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-0.5">
           {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
+            if (item.dropdown) {
+              return (
+                <div key={item.label} className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className={`flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                      dropdownOpen
+                        ? 'text-brand-400 bg-navy-800'
+                        : 'text-gray-400 hover:text-white hover:bg-navy-800'
+                    }`}
+                  >
+                    {item.label}
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {dropdownOpen && (
+                    <div className="absolute top-full left-0 mt-1 w-48 bg-navy-800 border border-navy-700 rounded-lg shadow-lg py-1 z-50">
+                      {item.dropdown.map((sub) => (
+                        <Link
+                          key={sub.label}
+                          href={sub.href}
+                          onClick={() => setDropdownOpen(false)}
+                          className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-navy-700 transition-colors"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
             return (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                  item.active
-                    ? 'text-brand-400 bg-navy-800'
-                    : 'text-gray-400 hover:text-white hover:bg-navy-800'
-                }`}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium text-gray-400 hover:text-white hover:bg-navy-800 transition-colors"
               >
-                <Icon className="w-4 h-4" />
                 {item.label}
               </Link>
             );
           })}
         </div>
 
-        <div className="hidden md:flex items-center gap-4">
-          <Link href="/calculators" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
-            <Calculator className="w-4 h-4 inline mr-1" />
-            Calculators
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-white bg-brand-500 hover:bg-brand-600 transition-colors"
-          >
-            <Phone className="w-4 h-4" />
-            Contact
-          </Link>
-        </div>
-
+        {/* Mobile Toggle */}
         <button
           className="md:hidden p-2 rounded-md text-gray-400 hover:text-white hover:bg-navy-800"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -64,42 +98,40 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="md:hidden bg-navy-800 border-t border-navy-700 px-4 py-3 space-y-1">
+        <div className="md:hidden bg-navy-800 border-t border-navy-700 px-4 py-3 space-y-0.5">
           {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
+            if (item.dropdown) {
+              return (
+                <div key={item.label}>
+                  <div className="px-3 py-2 text-sm font-medium text-gray-500 uppercase tracking-wider">
+                    {item.label}
+                  </div>
+                  {item.dropdown.map((sub) => (
+                    <Link
+                      key={sub.label}
+                      href={sub.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-2 px-5 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white hover:bg-navy-700"
+                    >
+                      {sub.label}
+                    </Link>
+                  ))}
+                </div>
+              );
+            }
             return (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium ${
-                  item.active
-                    ? 'text-brand-400 bg-navy-700'
-                    : 'text-gray-400 hover:text-white hover:bg-navy-700'
-                }`}
+                className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white hover:bg-navy-700"
               >
-                <Icon className="w-4 h-4" />
                 {item.label}
               </Link>
             );
           })}
-          <Link
-            href="/calculators"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white hover:bg-navy-700"
-          >
-            <Calculator className="w-4 h-4" />
-            Calculators
-          </Link>
-          <Link
-            href="/contact"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-white bg-brand-500 hover:bg-brand-600"
-          >
-            <Phone className="w-4 h-4" />
-            Contact
-          </Link>
         </div>
       )}
     </nav>

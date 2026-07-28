@@ -2,10 +2,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const FOOTER_LINKS = [
-  { label: 'Buy', href: '/properties?type=sale' },
-  { label: 'Rent', href: '/properties?type=rent' },
-  { label: 'People', href: '/people' },
-  { label: 'Calculators', href: '/calculators' },
+  { label: 'About', href: '/about' },
+  { label: 'Properties', href: '/properties' },
+  { label: 'Developments', href: '/developments' },
+  { label: 'International', href: '/international' },
+  { label: 'Golden Visa', href: '/golden-visa' },
+  { label: 'Our Team', href: '/people' },
   { label: 'Contact', href: '/contact' },
 ];
 
