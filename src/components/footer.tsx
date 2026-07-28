@@ -4,7 +4,7 @@ import Image from 'next/image';
 const FOOTER_LINKS = [
   { label: 'Buy', href: '/properties?type=sale' },
   { label: 'Rent', href: '/properties?type=rent' },
-  { label: 'Agents', href: '/agents' },
+  { label: 'People', href: '/people' },
   { label: 'Calculators', href: '/calculators' },
   { label: 'Contact', href: '/contact' },
 ];

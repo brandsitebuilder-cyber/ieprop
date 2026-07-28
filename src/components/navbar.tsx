@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { label: 'Buy', href: '/properties?type=sale', icon: Home, active: true },
   { label: 'Rent', href: '/properties?type=rent', icon: Building2 },
   { label: 'Sold', href: '/properties?status=sold&type=sale', icon: Banknote },
-  { label: 'Agents', href: '/agents', icon: UserRound },
+  { label: 'People', href: '/people', icon: UserRound },
 ];
 
 export default function Navbar() {
