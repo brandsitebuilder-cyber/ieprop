@@ -1,6 +1,7 @@
 import HeroVideo from '@/components/hero-video-v2';
 import HomeContent from './home-content';
 import SearchBar from '@/components/search-bar';
+import FeaturedProperty from '@/components/featured-property';
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <FeaturedProperty />
       <HomeContent />
     </div>
   );
