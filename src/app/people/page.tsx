@@ -1,46 +1,17 @@
-import { Phone, Mail } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { X } from "lucide-react";
 
 const PEOPLE = [
-  {
-    name: "Frans Nortje",
-    title: "Founder & CEO",
-    photo: "/people/frans-nortje.jpg",
-  },
-  {
-    name: "Meyer Maré",
-    title: "Principal Property Practitioner",
-    photo: "/people/meyer-mare.jpg",
-  },
-  {
-    name: "Theo Maré",
-    title: "Executive: Growth",
-    photo: "/people/theo-mare.jpg",
-  },
-  {
-    name: "Oelof Stander",
-    title: "Full Status Property Practitioner",
-    photo: "/people/oelof-stander.jpg",
-  },
-  {
-    name: "Sophia Nortje",
-    title: "Candidate Property Practitioner",
-    photo: "/people/sophia-nortje.jpg",
-  },
-  {
-    name: "Claudia Kok",
-    title: "Candidate Property Practitioner",
-    photo: null,
-  },
-  {
-    name: "Sherilise Liebenberg",
-    title: "Candidate Property Practitioner",
-    photo: "/people/sherilise-liebenberg.jpg",
-  },
-  {
-    name: "Ruan du Toit",
-    title: "Candidate Property Practitioner",
-    photo: "/people/ruan-du-toit.jpg",
-  },
+  { name: "Frans Nortje", title: "Founder & CEO", photo: "/people/frans-nortje.jpg" },
+  { name: "Meyer Maré", title: "Principal Property Practitioner", photo: "/people/meyer-mare.jpg" },
+  { name: "Theo Maré", title: "Executive: Growth", photo: "/people/theo-mare.jpg" },
+  { name: "Oelof Stander", title: "Full Status Property Practitioner", photo: "/people/oelof-stander.jpg" },
+  { name: "Sophia Nortje", title: "Candidate Property Practitioner", photo: "/people/sophia-nortje.jpg" },
+  { name: "Claudia Kok", title: "Candidate Property Practitioner", photo: null },
+  { name: "Sherilise Liebenberg", title: "Candidate Property Practitioner", photo: "/people/sherilise-liebenberg.jpg" },
+  { name: "Ruan du Toit", title: "Candidate Property Practitioner", photo: "/people/ruan-du-toit.jpg" },
 ];
 
 function AgentInitials({ name }: { name: string }) {
@@ -58,6 +29,8 @@ function AgentInitials({ name }: { name: string }) {
 }
 
 export default function PeoplePage() {
+  const [selectedPhoto, setSelectedPhoto] = useState<{ src: string; name: string } | null>(null);
+
   return (
     <main className="flex-1">
       {/* Hero */}
@@ -80,11 +53,16 @@ export default function PeoplePage() {
             >
               <div className="flex justify-center mb-4">
                 {person.photo ? (
-                  <img
-                    src={person.photo}
-                    alt={person.name}
-                    className="h-28 w-28 rounded-full object-cover object-top"
-                  />
+                  <button
+                    onClick={() => setSelectedPhoto({ src: person.photo!, name: person.name })}
+                    className="h-28 w-28 rounded-full overflow-hidden cursor-pointer hover:ring-2 hover:ring-brand hover:ring-offset-2 transition-all"
+                  >
+                    <img
+                      src={person.photo}
+                      alt={person.name}
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </button>
                 ) : (
                   <AgentInitials name={person.name} />
                 )}
@@ -97,6 +75,28 @@ export default function PeoplePage() {
           ))}
         </div>
       </section>
+
+      {/* Lightbox Modal */}
+      {selectedPhoto && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <button
+            onClick={() => setSelectedPhoto(null)}
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            aria-label="Close"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <img
+            src={selectedPhoto.src}
+            alt={selectedPhoto.name}
+            className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </main>
   );
 }
