@@ -39,7 +39,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 h-14 bg-navy-900 border-b border-navy-800">
       <div className="max-w-7xl mx-auto h-full px-4 flex items-center justify-between">
         <Link href="/" className="flex items-center shrink-0">
-          <img src="/assets/logo.png" alt="ieProp" className="h-10 w-auto" />
+          <img src="/assets/logo.png" alt="ieProp" className="h-14 w-auto -my-1" />
         </Link>
 
         {/* Desktop Nav */}
