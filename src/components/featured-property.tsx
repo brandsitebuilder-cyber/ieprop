@@ -4,15 +4,20 @@ import { useState } from "react";
 import { MapPin, Bed, Bath, Car, Play } from "lucide-react";
 
 const IMAGES = [
-  "/properties/featured/320213.jpg",
-  "/properties/featured/32021301.jpg",
-  "/properties/featured/32021302.jpg",
-  "/properties/featured/32021303.jpg",
-  "/properties/featured/32021304.jpg",
-  "/properties/featured/32021305.jpg",
-  "/properties/featured/32021306.jpg",
-  "/properties/featured/32021307.jpg",
-  "/properties/featured/32021308.jpg",
+  "/properties/featured/379037145.jpg",
+  "/properties/featured/379037146.jpg",
+  "/properties/featured/379037147.jpg",
+  "/properties/featured/379037148.jpg",
+  "/properties/featured/379037149.jpg",
+  "/properties/featured/379037150.jpg",
+  "/properties/featured/379037151.jpg",
+  "/properties/featured/379037152.jpg",
+  "/properties/featured/379037153.jpg",
+  "/properties/featured/379037154.jpg",
+  "/properties/featured/379037155.jpg",
+  "/properties/featured/379037156.jpg",
+  "/properties/featured/379037157.jpg",
+  "/properties/featured/379037158.jpg",
 ];
 
 const VIDEO_ID = "CboOPFrQIvI";
