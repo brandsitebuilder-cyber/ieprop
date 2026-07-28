@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import ClickTracking from "@/components/ClickTracking";
 import "./globals.css";
 
 const inter = Inter({
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900 antialiased">
+        <ClickTracking />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
