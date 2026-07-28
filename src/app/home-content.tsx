@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
 import type { Property } from '@/lib/supabase';
 import PropertyCard from '@/components/property-card';
 import AgentsStrip from '@/components/agents-strip';
@@ -10,18 +9,13 @@ import CalculatorsToggle from '@/components/calculators-toggle';
 
 export default function HomeContent() {
   const [properties, setProperties] = useState<Property[]>([]);
-  const [agents, setAgents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
       try {
-        const [propsRes, agentsRes] = await Promise.all([
-          fetch('/api/properties').then(r => r.json()),
-          supabase.from('ieprop_agents').select('*').limit(4),
-        ]);
+        const propsRes = await fetch('/api/properties').then(r => r.json());
         setProperties(propsRes || []);
-        setAgents(agentsRes.data || []);
       } catch (e) {
         console.error(e);
       } finally {
@@ -77,7 +71,7 @@ export default function HomeContent() {
         </Link>
       </div>
 
-      <AgentsStrip agents={agents} />
+      <AgentsStrip />
       <CalculatorsToggle />
     </div>
   );
