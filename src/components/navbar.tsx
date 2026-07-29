@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { label: 'About', href: '/about' },
   { label: 'Properties', href: '/properties' },
   { label: 'Developments', href: '/developments' },
   {
@@ -16,6 +15,7 @@ const NAV_ITEMS = [
       { label: 'Golden Visa', href: '/golden-visa' },
     ],
   },
+  { label: 'About', href: '/about' },
   { label: 'Our Team', href: '/people' },
   { label: 'Calculators', href: '/calculators' },
   { label: 'Contact', href: '/contact' },
