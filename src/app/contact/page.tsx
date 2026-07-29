@@ -47,10 +47,10 @@ export default function ContactPage() {
   return (
     <main className="flex-1">
       {/* Hero */}
-      <section className="bg-brand text-white py-16">
+      <section className="bg-navy-900 text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight">Contact Us</h1>
-          <p className="mt-4 text-brand-100 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 text-gray-300 text-lg max-w-2xl mx-auto">
             Have a question or ready to start your property journey? Get in touch and we&apos;ll respond promptly.
           </p>
         </div>

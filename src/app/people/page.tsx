@@ -34,10 +34,10 @@ export default function PeoplePage() {
   return (
     <main className="flex-1">
       {/* Hero */}
-      <section className="bg-brand text-white py-16">
+      <section className="bg-navy-900 text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold tracking-tight">Our People</h1>
-          <p className="mt-4 text-brand-100 text-lg max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold tracking-tight">Our Team</h1>
+          <p className="mt-4 text-gray-300 text-lg max-w-2xl mx-auto">
             Meet the team behind ieProp — dedicated property professionals committed to finding your perfect home.
           </p>
         </div>

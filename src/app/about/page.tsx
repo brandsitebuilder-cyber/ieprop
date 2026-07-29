@@ -1,10 +1,10 @@
 export default function AboutPage() {
   return (
     <main className="flex-1">
-      <section className="bg-brand text-white py-16">
+      <section className="bg-navy-900 text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight">About ieProp</h1>
-          <p className="mt-4 text-brand-100 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 text-gray-300 text-lg max-w-2xl mx-auto">
             An Investment Evolution in Property
           </p>
         </div>
