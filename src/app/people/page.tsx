@@ -9,7 +9,7 @@ const PEOPLE = [
   { name: "Theo Maré", title: "Executive: Growth", photo: "/people/theo-mare.jpg" },
   { name: "Oelof Stander", title: "Full Status Property Practitioner", photo: "/people/oelof-stander.jpg" },
   { name: "Sophia Nortje", title: "Candidate Property Practitioner", photo: "/people/sophia-nortje.jpg" },
-  { name: "Claudia Kok", title: "Candidate Property Practitioner", photo: null },
+  { name: "Claudia Kok", title: "Candidate Property Practitioner", photo: "/people/claudia-kok.jpg" },
   { name: "Sherilise Liebenberg", title: "Candidate Property Practitioner", photo: "/people/sherilise-liebenberg.jpg" },
   { name: "Ruan du Toit", title: "Candidate Property Practitioner", photo: "/people/ruan-du-toit.jpg" },
 ];
