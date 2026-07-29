@@ -17,6 +17,7 @@ const NAV_ITEMS = [
     ],
   },
   { label: 'Our Team', href: '/people' },
+  { label: 'Calculators', href: '/calculators' },
   { label: 'Contact', href: '/contact' },
 ];
 
