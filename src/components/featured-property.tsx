@@ -70,6 +70,7 @@ export default function FeaturedProperty() {
             <img
               src={IMAGES[activeImage]}
               alt="Featured property"
+              loading="lazy"
               className="w-full aspect-[16/10] object-cover cursor-pointer"
               onClick={() => openGallery(activeImage)}
             />

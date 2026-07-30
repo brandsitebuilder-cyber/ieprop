@@ -26,6 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
+      <head>
+        <link rel="preload" as="video" href="/video/hero.mp4" type="video/mp4" />
+      </head>
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900 antialiased">
         <ClickTracking />
         <Navbar />
