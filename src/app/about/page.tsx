@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "ieProp is a trusted South African estate agency helping families find their perfect property. Professional, experienced, and dedicated.",
+};
+
 export default function AboutPage() {
   return (
     <main className="flex-1">

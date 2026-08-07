@@ -1,7 +1,13 @@
 import { supabase } from "@/lib/supabase";
 import type { Agent } from "@/lib/supabase";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, Mail } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Our Agents",
+  description: "Meet our experienced estate agents. Dedicated professionals ready to help you buy, sell, or rent property.",
+};
 
 export const dynamic = "force-dynamic";
 
