@@ -2,6 +2,7 @@ import HeroVideo from '@/components/hero-video-v2';
 import HomeContent from './home-content';
 import SearchBar from '@/components/search-bar';
 import Testimonials from '@/components/testimonials';
+import AlertSignup from '@/components/alert-signup';
 
 export default function HomePage() {
   return (
@@ -17,6 +18,7 @@ export default function HomePage() {
       </section>
       <HomeContent />
       <Testimonials />
+      <AlertSignup />
     </div>
   );
 }
